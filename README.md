@@ -1,28 +1,6 @@
-# UOCIS322 - Project 1 #
-
-This project will get you started with creating a simple webpage server.
-
-## Getting started
-
-Directory structure:
-
-* the "pages" (HTML files and their assets) will be located in DOCROOT. For this project that location is the `pages/` directory. Make sure you specify this in your `credentials.ini`!
-
-* Everything that's located in `pageserver/`. That consists of a Python application (`pageserver.py`) that starts listening at a specified port and handles requests. This is the key file you'll be editing for this project.
-
-* There's a configuration parser, much like the one seen in [project-0](https://github.com/UO-CIS322/project-0), but a more detailed version. It not only looks for your `credentials.ini` file, both in `pageserver/` and the parent directory and falls back to `default.ini` if missing, it also allows you to override those settings through CLI. These will be discussed in the lab.
-
-* `Makefile` here refers to the two scripts provided: `start.sh` and `stop.sh`. The former starts the server, by calling `pageserver.py`. It will also store its PID (process id), in order to kill it later through `stop.sh`. However, if you notice that it failed to do so, you can kill it manually by looking up the PID.
-
-## Tasks
-
-The goal of this project is to implement a "file checking" logic for the existing server. Currently, if you set it up and start the server, it will just serve a page with a cat figure. What is expected is for the server to handle the requests as follows:
-
-* If a file exists in `pages/` (i.e. `trivia.html`, any name, any extention or format) exists, transmit `200 OK` header followed by that file. If the file doesn't exist, transmit `404 Not Found` error code in the header along with a message in the body explaining further. If a request includes illegal characters (`..` or `~`), the response should be a `403 Forbidden` error, again with a message in the body explaining it.
-
-* Update `README` with your name, info, and a brief description of the project.
-
-* You will submit your credentials.ini in Canvas. It should include your name and repo URL.
+Name: Sewon Sohn 
+Email: ssohn@uoregon.edu 
+Description: This project starts a web server and searches the indicated path for the file requested in the address. If the file exists, it is opened, and if it doesn't, an error message is thrown. Also, if the address contains illegal characters, an error message is thrown.
 
 
 ## Grading Rubric

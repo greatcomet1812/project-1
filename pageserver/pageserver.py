@@ -22,6 +22,7 @@ log = logging.getLogger(__name__)
 
 import socket    # Basic TCP/IP communication on the internet
 import _thread   # Response computation runs concurrently with main program
+import os
 
 
 def listen(portnum):
@@ -90,9 +91,24 @@ def respond(sock):
     log.info("Request was {}\n***\n".format(request))
 
     parts = request.split()
-    if len(parts) > 1 and parts[0] == "GET":
-        transmit(STATUS_OK, sock)
-        transmit(CAT, sock)
+    options = get_options()
+    path = options.DOCROOT + parts[1]
+    
+    if len(parts) > 1 and (parts[0] == "GET"):
+        if len(parts) > 2 and (".." in parts[1] or "~" in parts[1]): 
+            log.info("File name invalid.\n")
+            transmit(STATUS_FORBIDDEN, sock)
+            transmit("File name invalid.\n", sock)
+        elif len(parts) > 2 and os.path.exists(path):
+            f = open(path, "r")
+            fileRead = f.read()
+            log.info("File exists.\n")
+            transmit(STATUS_OK, sock)
+            transmit(fileRead, sock)
+        else:
+            log.info("File does not exist.\n")
+            transmit(STATUS_NOT_IMPLEMENTED, sock)
+            transmit("\nFile does not exist\n", sock)
     else:
         log.info("Unhandled request: {}".format(request))
         transmit(STATUS_NOT_IMPLEMENTED, sock)
