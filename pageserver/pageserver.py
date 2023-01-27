@@ -107,7 +107,7 @@ def respond(sock):
             transmit(fileRead, sock)
         else:
             log.info("File does not exist.\n")
-            transmit(STATUS_NOT_IMPLEMENTED, sock)
+            transmit(STATUS_NOT_FOUND, sock)
             transmit("\nFile does not exist\n", sock)
     else:
         log.info("Unhandled request: {}".format(request))
